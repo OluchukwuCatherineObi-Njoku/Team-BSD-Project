@@ -19,7 +19,8 @@
     "prod": "cross-env LOG_LEVEL=debug nodemon src/app.ts | pino-pretty",
     "test:unit": "jest",
     "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\"",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test:watch": "jest -c jest.config.ts --runInBand --watch --"
   },
   "devDependencies": {
     "@orangeopensource/hurl": "^4.1.0",
