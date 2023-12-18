@@ -1,5 +1,6 @@
 // Must import jest functions every time you want to use them
 import { expect, test, describe } from '@jest/globals';
+
 // Import whatever it is that you're testing
 import printuser from '../../src/printuser';
 import { IPERSON } from 'src/interfaces/TEAM_A';
