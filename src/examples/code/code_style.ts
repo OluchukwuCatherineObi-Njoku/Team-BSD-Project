@@ -8,7 +8,7 @@ export function calculateRectangleArea_BAD(length: number, width: number) {
     if (width > 0) {
       return length * width;
     } else {
-      console.log('Invalid width: must be greater than 0.');
+      console.log('Invalid width: must be greater than 0..');
     }
   } else {
     console.log('Invalid length: must be greater than 0.');
