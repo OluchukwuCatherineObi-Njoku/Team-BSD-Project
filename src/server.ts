@@ -8,7 +8,6 @@ import logger from './logger';
 import router from './routes';
 
 const app = express();
-
 // Middleware for security headers
 app.use(helmet());
 
