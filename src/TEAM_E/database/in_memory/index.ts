@@ -9,19 +9,21 @@ class Db {
    * The posts.
    * @private
    */
-  private posts: IPost[] = [];
+  private static posts: IPost[] = [];
 
   /**
    * ID for posts to keep track.
    * @private
    */
-  static posts_id: number = 0;
+  private static posts_id: number = 0;
 
   /**
    * Constructs the ssf in-memory database
    */
   constructor() {
-    this.posts = [];
+    if (!Db.posts) {
+      Db.posts = [];
+    }
   }
 
   /**
@@ -36,7 +38,7 @@ class Db {
       );
     }
 
-    this.posts.push({ id: Db.posts_id++, title: title, description: description, image: image });
+    Db.posts.push({ id: Db.posts_id++, title: title, description: description, image: image });
 
     return Promise.resolve();
   }
@@ -47,7 +49,7 @@ class Db {
    * @returns {Promise(IPost)}
    */
   getPostByTitle(title: string): Promise<IPost> {
-    const post = this.posts.find((p) => p.title === title);
+    const post = Db.posts.find((p) => p.title === title);
 
     if (post !== undefined) {
       // Post found, resolve the promise with the post
@@ -64,7 +66,7 @@ class Db {
    * @returns {Promise(IPost)}
    */
   getPostByID(id: number): Promise<IPost> {
-    const post = this.posts.find((p) => p.id === id);
+    const post = Db.posts.find((p) => p.id === id);
 
     if (post !== undefined) {
       // Post found, resolve the promise with the post
@@ -83,9 +85,9 @@ class Db {
   editPost(edited_post: IPost): Promise<void> {
     let check = false;
 
-    for (let i = 0; i < this.posts.length; ++i) {
-      if (this.posts[i]?.id == edited_post.id) {
-        this.posts[i] = edited_post;
+    for (let i = 0; i < Db.posts.length; ++i) {
+      if (Db.posts[i]?.id == edited_post.id) {
+        Db.posts[i] = edited_post;
         check = true;
         break;
       }
@@ -106,10 +108,10 @@ class Db {
    * @returns {Promise<void>}
    */
   deletePostByID(id: number): Promise<void> {
-    const index = this.posts.findIndex((p) => p.id === id);
+    const index = Db.posts.findIndex((p) => p.id === id);
 
     if (index !== -1) {
-      this.posts.splice(index, 1);
+      Db.posts.splice(index, 1);
 
       return Promise.resolve();
     } else {
@@ -123,10 +125,10 @@ class Db {
    * @returns {Promise<void>}
    */
   deletePostByTitle(title: string): Promise<void> {
-    const index = this.posts.findIndex((p) => p.title === title);
+    const index = Db.posts.findIndex((p) => p.title === title);
 
     if (index !== -1) {
-      this.posts.splice(index, 1);
+      Db.posts.splice(index, 1);
 
       return Promise.resolve();
     } else {
@@ -140,10 +142,10 @@ class Db {
    * @returns {Promise<void>}
    */
   deletePost(postToDelete: IPost): Promise<void> {
-    const index = this.posts.findIndex((p) => p.id === postToDelete.id);
+    const index = Db.posts.findIndex((p) => p.id === postToDelete.id);
 
     if (index !== -1) {
-      this.posts.splice(index, 1);
+      Db.posts.splice(index, 1);
 
       return Promise.resolve();
     } else {
