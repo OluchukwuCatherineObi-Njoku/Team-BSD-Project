@@ -40,6 +40,6 @@ export default async (req: Request, res: Response) => {
     const error = err as Error;
 
     logger.error(`Could not retrieve post: ${error.message}`);
-    return res.status(400).send(error.message);
+    return res.status(404).send(error.message);
   }
 };

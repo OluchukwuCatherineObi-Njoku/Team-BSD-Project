@@ -40,3 +40,5 @@ process.on('SIGTERM', () => {
     logger.info('Server stopped.');
   });
 });
+
+export { app };
