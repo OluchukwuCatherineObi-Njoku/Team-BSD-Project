@@ -142,9 +142,9 @@ describe('Testing deleting', () => {
     }
 
     // Use rejects matcher for testing promise rejection
-    await db.deletePostByID(post.id);
+    await db.deletePostByID(post.id as number);
 
-    await expect(db.getPostByID(post.id)).rejects.toThrow(
+    await expect(db.getPostByID(post.id as number)).rejects.toThrow(
       `Could not find post with id: [${post.id}]`
     );
   });
