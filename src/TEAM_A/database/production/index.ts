@@ -1,4 +1,3 @@
-import { IPost } from 'src/interfaces/TEAM_E';
 import { ICLUB } from 'src/interfaces/TEAM_A';
 
 /**
