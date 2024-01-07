@@ -14,6 +14,7 @@
     "stoppable": "^1.1.0"
   },
   "scripts": {
+    "start": "tsc && node ./dist/src/server.js",
     "build": "tsc -p .",
     "dev": "cross-env LOG_LEVEL=debug nodemon src/server.ts | pino-pretty",
     "prod": "cross-env LOG_LEVEL=debug nodemon src/app.ts | pino-pretty",
