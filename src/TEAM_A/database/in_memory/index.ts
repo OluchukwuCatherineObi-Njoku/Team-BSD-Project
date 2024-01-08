@@ -66,15 +66,23 @@ class Db {
    * @returns {Promise(ICLUB)}
    */
   getClubsByNameSubString(nameSubStr: string): Promise<ICLUB[]> {
-    const clubs = Db.clubs.filter((c) => c.name.includes(nameSubStr));
-
-    if (clubs.length > 0) {
-      // Club found, resolve the promise with the club
-      return Promise.resolve(clubs);
-    } else {
-      // Post not found, reject the promise
-      return Promise.reject(new Error(`Could not find any clubs with name containing: [${nameSubStr}]`));
+    if (!nameSubStr) {
+      return Promise.reject(
+        new Error('Must provide a club name at least.')
+      );
     }
+    else{
+      const clubs = Db.clubs.filter((c) => c.name?.includes(nameSubStr));
+
+      if (clubs.length > 0) {
+        // Club found, resolve the promise with the club
+        return Promise.resolve(clubs);
+      } else {
+        // Post not found, reject the promise
+        return Promise.reject(new Error(`Could not find any clubs with name containing: [${nameSubStr}]`));
+      }
+    }
+  
   }
 
   /**

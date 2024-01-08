@@ -1,6 +1,5 @@
 // Must import jest functions every time you want to use them
 import { expect, test, describe } from '@jest/globals';
-import { IPost } from 'src/interfaces/TEAM_E';
 import { ICLUB } from 'src/interfaces/TEAM_A';
 import request from 'supertest';
 import { app } from '../../src/server';
