@@ -182,7 +182,7 @@ class Db {
       return Promise.resolve();
     } else {
       return Promise.reject(
-        new Error(`Could not find post with id: [${clubToDelete.id}] to delete`)
+        new Error(`Could not find club with id: [${clubToDelete.id}] to delete`)
       );
     }
   }
