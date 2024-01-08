@@ -66,7 +66,7 @@ class Db {
    * @returns {Promise(ICLUB)}
    */
   getClubsByNameSubString(nameSubStr: string): Promise<ICLUB[]> {
-    const clubs = this.clubs.filter((c) => c.name.includes(nameSubStr));
+    const clubs = this.clubs.filter((c) => c.name?.includes(nameSubStr));
 
     if (clubs.length > 0) {
       // Club found, resolve the promise with the club
