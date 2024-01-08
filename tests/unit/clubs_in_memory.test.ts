@@ -178,7 +178,7 @@ describe('Testing deleting', () => {
     await db.deleteClubByID(club.id as number);
 
     await expect(db.getClubByID(club.id as number)).rejects.toThrow(
-      `Could not find club with id: ${club.id}]`
+      `Could not find club with id: [${club.id}]`
     );
   });
 
