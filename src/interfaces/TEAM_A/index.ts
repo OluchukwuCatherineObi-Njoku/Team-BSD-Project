@@ -26,8 +26,8 @@ export interface EVENT {
 }
 
 export interface ICLUB {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
   about_club?: string;
   image?: string;
   club_members?: {
