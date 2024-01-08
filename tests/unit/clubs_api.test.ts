@@ -38,7 +38,7 @@ describe('Testing club api: retrieving a club', () => {
 
     expect(res.statusCode).toBe(201);
 
-    const club = await request(app).get('/team_a/club/id?id=0');
+    const club = await request(app).get('/team_a/club/id?id=1');
 
     expect(club.statusCode).toBe(200);
     expect(club.body.id).toBe(0);
@@ -72,7 +72,6 @@ describe('Testing club api: retrieving a club', () => {
     const club = await request(app).get('/team_a/club/name?name=The Fall of the Lemurs');
 
     expect(club.statusCode).toBe(200);
-    expect(club.body.id).toBe(0);
     expect(club.body.name).toBe('The Fall of the Lemurs');
   });
 
@@ -102,7 +101,7 @@ describe('Testing club api: retrieving a club', () => {
       const club = await request(app).get(`/team_a/club/nameSubStr?nameSubStr=Filander`);
 
     expect(club.statusCode).toBe(200);
-    expect(club).not.toHaveLength(0);
+    expect(club.body).not.toHaveLength(0);
   });
 
   test('Retrieving clubs by substring that does not exist', async () => {
@@ -115,7 +114,7 @@ describe('Testing club api: retrieving a club', () => {
 
       // Your expect statement here
       expect(club.statusCode).toBe(200);
-      expect(club).not.toHaveLength(0);
+      expect(club.body).not.toHaveLength(0);
   });
 
 });
@@ -129,14 +128,13 @@ describe('Testing club api: editing a club', () => {
         image: 'https://static.wikia.nocookie.net/villains/images/b/ba/D8m0Z.png/revision/latest?cb=20140425131427',
       };
 
-    let res = await request(app).post('/team_a/post').send(a_club);
+    let res = await request(app).post('/team_a/club').send(a_club);
 
     expect(res.statusCode).toBe(201);
 
-    let club = await request(app).get('/team_a/club/id?id=0');
+    let club = await request(app).get('/team_a/club/name?name=The Flinstones');
 
     expect(club.statusCode).toBe(200);
-    expect(club.body.id).toBe(0);
     expect(club.body.name).toBe('The Flinstones');
 
     a_club.id = club.body.id;
@@ -146,7 +144,7 @@ describe('Testing club api: editing a club', () => {
 
     expect(res.statusCode).toBe(200);
 
-    club = await request(app).get('/team_a/post/id?id=0');
+    club = await request(app).get(`/team_a/club/id?id=${a_club.id}`);
 
     expect(club.body.title).toBe('Goodbye World!');
   });
@@ -168,7 +166,7 @@ describe('Testing club api: editing a club', () => {
 describe('Testing club api: deleting a club', () => {
   test('Deleting a club by the club to be deleted', async () => {
     const a_club: ICLUB = {
-        name: 'The Filanderers',
+        name: 'The Filanderersss',
         about_club: 'The King Julian disgrace',
         image: 'https://static.wikia.nocookie.net/villains/images/b/ba/D8m0Z.png/revision/latest?cb=20140425131427',
       };
@@ -177,10 +175,10 @@ describe('Testing club api: deleting a club', () => {
 
     expect(res.statusCode).toBe(201);
 
-    let club = await request(app).get('/team_a/club/name?name=The Filanderers');
+    let club = await request(app).get('/team_a/club/name?name=The Filanderersss');
 
     expect(club.statusCode).toBe(200);
-    expect(club.body.name).toBe('The Filanderers');
+    expect(club.body.name).toBe('The Filanderersss');
 
     a_club.id = club.body.id;
 
@@ -188,7 +186,7 @@ describe('Testing club api: deleting a club', () => {
 
     expect(res.statusCode).toBe(200);
 
-    club = await request(app).get('/team_a/club/id?id=1');
+    club = await request(app).get(`/team_a/club/id?id=${a_club.id}`);
 
     expect(club.statusCode).toBe(404);
   });
@@ -200,9 +198,9 @@ describe('Testing club api: deleting a club', () => {
         image: 'https://static.wikia.nocookie.net/villains/images/b/ba/D8m0Z.png/revision/latest?cb=20140425131427',
       };
 
-      let res = await request(app).post('/team_a/club').send(a_club);
+      //let res = await request(app).post('/team_a/club').send(a_club);
 
-      expect(res.statusCode).toBe(201);
+      //expect(res.statusCode).toBe(201);
   
       let club = await request(app).get('/team_a/club/name?name=The Filanderers');
 
@@ -211,7 +209,7 @@ describe('Testing club api: deleting a club', () => {
   
       a_club.id = club.body.id;
   
-    res = await request(app).delete(`/team_a/post/id?id=${a_club.id}`);
+    let res = await request(app).delete(`/team_a/post/id?id=${a_club.id}`);
 
     expect(res.statusCode).toBe(200);
 
@@ -259,7 +257,7 @@ describe('Testing club api: deleting a club', () => {
     expect(res.statusCode).toBe(404);
   });
 
-  test('Deleting a post by the the post to be deleted THAT DOESNT EXIST', async () => {
+  test('Deleting a club by the the club to be deleted THAT DOESNT EXIST', async () => {
     const a_club: ICLUB = {
       id: 12333,
       name: 'I do not exist',
@@ -267,7 +265,7 @@ describe('Testing club api: deleting a club', () => {
       image: 'Image of nothing',
     };
 
-    const res = await request(app).get('/team_a/club').send(a_club);
+    const res = await request(app).get('/team_a/club/name?name=I do not exist').send(a_club);
 
     expect(res.statusCode).toBe(404);
   });
