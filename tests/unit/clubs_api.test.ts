@@ -41,7 +41,7 @@ describe('Testing club api: retrieving a club', () => {
     const club = await request(app).get('/team_a/club/id?id=1');
 
     expect(club.statusCode).toBe(200);
-    expect(club.body.id).toBe(0);
+    expect(club.body.id).toBe(1);
     expect(club.body.name).toBe('The Fall of the Lemurs');
   });
 
@@ -146,7 +146,7 @@ describe('Testing club api: editing a club', () => {
 
     club = await request(app).get(`/team_a/club/id?id=${a_club.id}`);
 
-    expect(club.body.title).toBe('Goodbye World!');
+    expect(club.body.name).toBe('Goodbye World!');
   });
 
   test('Editing a post by a new post THAT DOESNT EXIST', async () => {
@@ -198,7 +198,7 @@ describe('Testing club api: deleting a club', () => {
         image: 'https://static.wikia.nocookie.net/villains/images/b/ba/D8m0Z.png/revision/latest?cb=20140425131427',
       };
 
-      //let res = await request(app).post('/team_a/club').send(a_club);
+      let res = await request(app).post('/team_a/club').send(a_club);
 
       //expect(res.statusCode).toBe(201);
   
@@ -209,7 +209,7 @@ describe('Testing club api: deleting a club', () => {
   
       a_club.id = club.body.id;
   
-    let res = await request(app).delete(`/team_a/post/id?id=${a_club.id}`);
+     res = await request(app).delete(`/team_a/post/id?id=${a_club.id}`);
 
     expect(res.statusCode).toBe(200);
 
