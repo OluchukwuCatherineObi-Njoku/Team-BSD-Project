@@ -200,7 +200,7 @@ describe('Testing club api: deleting a club', () => {
 
       let res = await request(app).post('/team_a/club').send(a_club);
 
-      //expect(res.statusCode).toBe(201);
+      expect(res.statusCode).toBe(201);
   
       let club = await request(app).get('/team_a/club/name?name=The Filanderers');
 
@@ -209,7 +209,7 @@ describe('Testing club api: deleting a club', () => {
   
       a_club.id = club.body.id;
   
-     res = await request(app).delete(`/team_a/post/id?id=${a_club.id}`);
+     res = await request(app).delete(`/team_a/club/id?id=${a_club.id}`);
 
     expect(res.statusCode).toBe(200);
 
@@ -246,7 +246,7 @@ describe('Testing club api: deleting a club', () => {
   });
 
   test('Deleting a club by the name of the club to be deleted THAT DOESNT EXIST', async () => {
-    const res = await request(app).get('/team_a/club/name?name=The Filanderers');
+    const res = await request(app).get('/team_a/club/name?name=The Flakes');
 
     expect(res.statusCode).toBe(404);
   });
